@@ -1,0 +1,179 @@
+<div class="container-fluid px-0">
+  <!-- Navigacijska vrstica -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">
+        <i class="bi bi-journal-text me-2"></i>ReceptiApp
+      </a>
+      
+      <div class="d-flex align-items-center">
+        <span class="text-white me-3 d-none d-md-block">
+          Pozdravljen, <strong>{{userName}}</strong>!
+        </span>
+        <button class="btn btn-outline-light btn-sm" (click)="logout()">
+          <i class="bi bi-box-arrow-right me-1"></i> Odjava
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Glavna vsebina -->
+  <div class="container mt-4">
+    <!-- Pojasnilo aplikacije -->
+    <div class="row mb-5">
+      <div class="col-12">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-4">
+            <h1 class="card-title mb-3">Dobrodošli v ReceptiApp!</h1>
+            <p class="lead text-muted">
+              Tukaj lahko brskate, dodajate in upravljate svoje najljubše recepte. 
+              Začnite z iskanjem ali dodajte svoj prvi recept.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Statistika -->
+    <div class="row mb-5">
+      <div class="col-md-3 col-6 mb-3">
+        <div class="card text-center border-0 shadow-sm h-100">
+          <div class="card-body">
+            <h2 class="display-6 text-primary">0</h2>
+            <p class="text-muted mb-0">Moji recepti</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-6 mb-3">
+        <div class="card text-center border-0 shadow-sm h-100">
+          <div class="card-body">
+            <h2 class="display-6 text-success">0</h2>
+            <p class="text-muted mb-0">Shranjeni</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-6 mb-3">
+        <div class="card text-center border-0 shadow-sm h-100">
+          <div class="card-body">
+            <h2 class="display-6 text-warning">0</h2>
+            <p class="text-muted mb-0">V pripravi</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-6 mb-3">
+        <div class="card text-center border-0 shadow-sm h-100">
+          <div class="card-body">
+            <h2 class="display-6 text-info">0</h2>
+            <p class="text-muted mb-0">Priljubljeni</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hitri akciji -->
+    <div class="row mb-5">
+      <div class="col-md-6 mb-3">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-body text-center p-5">
+            <i class="bi bi-search display-1 text-muted mb-3"></i>
+            <h3 class="card-title">Išči recepte</h3>
+            <p class="card-text text-muted mb-4">
+              Poišči recepte po sestavinah, času priprave ali kategoriji.
+            </p>
+            <button class="btn btn-primary">
+              <i class="bi bi-search me-2"></i> Začni iskanje
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-6 mb-3">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-body text-center p-5">
+            <i class="bi bi-plus-circle display-1 text-muted mb-3"></i>
+            <h3 class="card-title">Dodaj recept</h3>
+            <p class="card-text text-muted mb-4">
+              Deli svoje kulinarične mojstrovine z drugimi uporabniki.
+            </p>
+            <button class="btn btn-success">
+              <i class="bi bi-plus-lg me-2"></i> Nov recept
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Predlogi receptov -->
+    <div class="row">
+      <div class="col-12">
+        <h2 class="mb-4">Predlagani recepti</h2>
+      </div>
+      
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-img-top bg-secondary" style="height: 150px;"></div>
+          <div class="card-body">
+            <h5 class="card-title">Bolognese testenine</h5>
+            <p class="card-text text-muted">Klasična italijanska jed, pripravljena v 45 minut.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <small class="text-muted">
+                <i class="bi bi-clock me-1"></i> 45 min
+              </small>
+              <span class="badge bg-primary">Italijanska</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-img-top bg-warning" style="height: 150px;"></div>
+          <div class="card-body">
+            <h5 class="card-title">Kremna juha</h5>
+            <p class="card-text text-muted">Gresta kremna juha s svežimi začimbami.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <small class="text-muted">
+                <i class="bi bi-clock me-1"></i> 30 min
+              </small>
+              <span class="badge bg-success">Jesenska</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          <div class="card-img-top bg-info" style="height: 150px;"></div>
+          <div class="card-body">
+            <h5 class="card-title">Šokoladni muffin</h5>
+            <p class="card-text text-muted">Mehki šokoladni muffini z notranjostjo tekoče čokolade.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <small class="text-muted">
+                <i class="bi bi-clock me-1"></i> 25 min
+              </small>
+              <span class="badge bg-danger">Sladica</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-light border-top mt-5 py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h5>ReceptiApp</h5>
+          <p class="text-muted mb-0">Vaš vir navdiha za vsakdanje kuhanje.</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <p class="text-muted mb-0">
+            Prijavljeni kot: <strong>{{userEmail}}</strong>
+          </p>
+          <small class="text-muted">© 2024 ReceptiApp. Vse pravice pridržane.</small>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>

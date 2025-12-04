@@ -1,0 +1,76 @@
+<div class="row justify-content-center align-items-center min-vh-100">
+  <div class="col-md-4">
+    <div class="card shadow">
+      <div class="card-body p-5">
+        <h2 class="card-title text-center mb-4">Registracija</h2>
+        
+        <!-- Dodaj form tag -->
+        <form (ngSubmit)="register()" #registerForm="ngForm">
+          
+          <!-- Email -->
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input 
+              type="email" 
+              class="form-control"
+              id="email"
+              name="email"
+              [(ngModel)]="email"
+              placeholder="vnesite@email.com"
+              required
+              email
+            >
+          </div>
+
+          <!-- Geslo -->
+          <div class="mb-3">
+            <label for="password" class="form-label">Geslo</label>
+            <input 
+              type="password" 
+              class="form-control"
+              id="password"
+              name="password"
+              [(ngModel)]="password"
+              placeholder="Najmanj 6 znakov"
+              required
+              minlength="6"
+            >
+            <div class="form-text">Geslo mora imeti vsaj 6 znakov</div>
+          </div>
+
+          <!-- Potrditev gesla -->
+          <div class="mb-4">
+            <label for="confirmPassword" class="form-label">Ponovite geslo</label>
+            <input 
+              type="password" 
+              class="form-control"
+              id="confirmPassword"
+              name="confirmPassword"
+              [(ngModel)]="confirmPassword"
+              placeholder="Ponovite geslo"
+              required
+            >
+          </div>
+
+          <!-- Gumb za registracijo -->
+          <button 
+            type="submit"
+            class="btn btn-primary w-100 mb-3"
+            [disabled]="isLoading || !registerForm.form.valid"
+          >
+            <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2"></span>
+            {{ isLoading ? 'Ustvarjanje...' : 'Ustvari račun' }}
+          </button>
+        </form>
+
+        <!-- Link za prijavo -->
+        <div class="text-center">
+          <p class="mb-0">Že imate račun?</p>
+          <a routerLink="/login" class="text-decoration-none">
+            Prijavite se
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
