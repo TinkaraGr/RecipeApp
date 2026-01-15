@@ -1,0 +1,68 @@
+.card {
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid #e9ecef;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1) !important;
+  z-index: 100;
+}
+
+.card-body {
+  padding-bottom: 0.75rem;
+}
+
+.btn-link.text-muted:hover {
+  color: #6c757d !important;
+  background-color: rgba(0,0,0,0.05);
+  border-radius: 50%;
+}
+
+.dropdown-menu {
+  min-width: 150px;
+  border: 1px solid rgba(0,0,0,0.15);
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+}
+
+.dropdown-item {
+  padding: 0.375rem 1rem;
+  font-size: 0.9rem;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+}
+
+.dropdown-item.text-danger:hover {
+  background-color: #f8d7da;
+}
+
+.dropdown-menu .p-3 {
+  background-color: #fff;
+}
+
+.dropdown-menu h6 {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.dropdown-menu .text-muted {
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.dropdown-menu {
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
