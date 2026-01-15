@@ -18,7 +18,7 @@ Projekt je razvit kot **frontend aplikacija v Angularju**, povezana s **Supabase
 - **Angular**
 - **Supabase**
 - **Bootstrap**
-- **HTML / CSS / TypeScript**
+- **HTML / CSS**
 
 ---
 
