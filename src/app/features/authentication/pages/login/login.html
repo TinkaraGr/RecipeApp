@@ -1,0 +1,74 @@
+<div class="row justify-content-center align-items-center min-vh-100">
+  <div class="col-md-4">
+    <div class="card shadow">
+      <div class="card-body p-5">
+        <h2 class="card-title text-center mb-4">Prijava</h2>
+        
+        <form (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm">
+          
+          <!-- Email -->
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input 
+              type="email" 
+              class="form-control"
+              id="email"
+              name="email"
+              #emailInput="ngModel"
+              [(ngModel)]="email"
+              placeholder="Vnesite e-mail"
+              [ngClass]="{'is-invalid': emailInput.invalid && (emailInput.touched || emailInput.dirty || loginForm.submitted), 'is-valid': emailInput.valid && (emailInput.touched || emailInput.dirty || loginForm.submitted)}"
+              required
+              email
+            >
+            @if (emailInput.invalid && (emailInput.touched || emailInput.dirty || loginForm.submitted)) {
+              <div class="invalid-feedback d-block">
+                @if (emailInput.errors && emailInput.errors['required']) {
+                  Polje je obvezno!
+                } @else if (emailInput.errors && emailInput.errors['email']) {
+                  Vnesite veljaven email naslov!
+                }
+              </div>
+            }
+          </div>
+
+          <!-- Password -->
+          <div class="mb-4">
+            <label for="password" class="form-label">Geslo</label>
+            <input 
+              type="password" 
+              class="form-control"
+              id="password"
+              name="password"
+              #passwordInput="ngModel"
+              [(ngModel)]="password"
+              placeholder="Vnesite geslo"
+              [ngClass]="{'is-invalid': passwordInput.invalid && (passwordInput.touched || passwordInput.dirty || loginForm.submitted), 'is-valid': passwordInput.valid && (passwordInput.touched || passwordInput.dirty || loginForm.submitted)}"
+              required
+            >
+            @if (passwordInput.invalid && (passwordInput.touched || passwordInput.dirty || loginForm.submitted)) {
+              @if (passwordInput.errors && passwordInput.errors['required']) {
+                <div class="invalid-feedback d-block">Polje je obvezno!</div>
+              }
+            }
+          </div>
+
+          <button 
+            type="submit"
+            class="btn btn-primary w-100 mb-3"
+            [disabled]="!loginForm.form.valid"
+          >
+            Prijavi se
+          </button>
+        </form>
+
+        <div class="text-center">
+          <p class="mb-0">Še nimate računa?</p>
+          <a routerLink="/register" class="text-decoration-none">
+            Ustvarite račun
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

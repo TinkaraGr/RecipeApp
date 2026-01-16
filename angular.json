@@ -86,13 +86,17 @@
           "defaultConfiguration": "production"
         },
         "serve": {
+          "options": {
+            "proxyConfig": "proxy.conf.json"
+          },
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
               "buildTarget": "recipeApp:build:production"
             },
             "development": {
-              "buildTarget": "recipeApp:build:development"
+              "buildTarget": "recipeApp:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

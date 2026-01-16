@@ -1,0 +1,219 @@
+<div class="container-fluid px-0">
+  <div class="container mt-3">
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-outline-secondary mb-2" (click)="goBack()">
+            <i class="bi bi-arrow-left me-1"></i> Nazaj
+        </button>
+    </div>
+  </div>
+
+  <div class="container mt-4">
+    @if (isLoading) {
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Nalaganje...</span>
+            </div>
+            <p class="mt-2">Nalagam recept za urejanje...</p>
+          </div>
+        </div>
+      </div>
+    } @else {
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body p-4">
+              <h1 class="card-title mb-3">Uredi recept</h1>
+              <p class="lead text-muted mb-0">
+                Spremeni podatke recepta in shrani spremembe.
+              </p>
+            </div>
+          </div>
+
+          @if (successMessage) {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <i class="bi bi-check-circle-fill me-2"></i>
+              {{ successMessage }}
+              <button type="button" class="btn-close" (click)="successMessage = ''"></button>
+            </div>
+          }
+
+          @if (errorMessage) {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <i class="bi bi-exclamation-triangle me-2"></i>
+              {{ errorMessage }}
+              <button type="button" class="btn-close" (click)="errorMessage = ''"></button>
+            </div>
+          }
+
+          <form #recipeForm="ngForm" (ngSubmit)="onSubmit()" class="card shadow-sm border-0">
+            <div class="card-body p-4">
+              
+              <div class="mb-3">
+                <label for="title" class="form-label">
+                  <i class="bi bi-card-heading me-1"></i>Naslov recepta *
+                </label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  id="title"
+                  name="title"
+                  [(ngModel)]="recipe.title"
+                  #title="ngModel"
+                  required
+                  minlength="3"
+                  placeholder="Npr. Cimetove rolice">
+                
+                @if (title.invalid && (title.dirty || title.touched)) {
+                  <div class="invalid-feedback d-block">
+                    @if (title.errors?.['required']) {
+                      <div>Naslov je obvezen.</div>
+                    }
+                    @if (title.errors?.['minlength']) {
+                      <div>Naslov mora vsebovati vsaj 3 znake.</div>
+                    }
+                  </div>
+                }
+              </div>
+
+              <div class="mb-3">
+                <label for="image" class="form-label">
+                  <i class="bi bi-image me-1"></i>URL slike
+                </label>
+                <input 
+                  type="url" 
+                  class="form-control" 
+                  id="image"
+                  name="image"
+                  [(ngModel)]="recipe.image"
+                  placeholder="https://example.com/slika.jpg">
+                <div class="form-text">Povezava do slike recepta (neobvezno).</div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="level" class="form-label">
+                    <i class="bi bi-bar-chart me-1"></i>Težavnost *
+                  </label>
+                  <select 
+                    class="form-select" 
+                    id="level"
+                    name="level"
+                    [(ngModel)]="recipe.level"
+                    #level="ngModel"
+                    required>
+                    @for (option of getLevelOptions(); track option.value) {
+                      <option [value]="option.value" [disabled]="option.disabled">
+                        {{ option.label }}
+                      </option>
+                    }
+                  </select>
+                  
+                  @if (level.invalid && (level.dirty || level.touched)) {
+                    <div class="invalid-feedback d-block">
+                      Izberi težavnost.
+                    </div>
+                  }
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label for="time" class="form-label">
+                    <i class="bi bi-clock me-1"></i>Čas priprave (min) *
+                  </label>
+                  <input 
+                    type="number" 
+                    class="form-control" 
+                    id="time"
+                    name="time"
+                    [(ngModel)]="recipe.time"
+                    #time="ngModel"
+                    required
+                    min="1"
+                    placeholder="Npr. 45">
+                  
+                  @if (time.invalid && (time.dirty || time.touched)) {
+                    <div class="invalid-feedback d-block">
+                      @if (time.errors?.['required']) {
+                        <div>Čas je obvezen.</div>
+                      }
+                      @if (time.errors?.['min']) {
+                        <div>Čas mora biti vsaj 1 minuta.</div>
+                      }
+                    </div>
+                  }
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="ingredients" class="form-label">
+                  <i class="bi bi-list-ul me-1"></i>Sestavine *
+                </label>
+                <textarea 
+                  class="form-control" 
+                  id="ingredients"
+                  name="ingredients"
+                  [(ngModel)]="recipe.ingredients"
+                  #ingredients="ngModel"
+                  required
+                  rows="4"
+                  placeholder="Vsako sestavino vpiši v novo vrstico:
+- 500g moke
+- 3 jajca
+- 100g sladkorja"></textarea>
+                
+                @if (ingredients.invalid && (ingredients.dirty || ingredients.touched)) {
+                  <div class="invalid-feedback d-block">
+                    Vpiši sestavine recepta.
+                  </div>
+                }
+                <div class="form-text">Vsako sestavino vpiši v novo vrstico.</div>
+              </div>
+
+              <div class="mb-4">
+                <label for="description" class="form-label">
+                  <i class="bi bi-journal-text me-1"></i>Opis in postopek priprave *
+                </label>
+                <textarea 
+                  class="form-control" 
+                  id="description"
+                  name="description"
+                  [(ngModel)]="recipe.description"
+                  #description="ngModel"
+                  required
+                  rows="6"
+                  placeholder="Podrobno opiši postopek priprave..."></textarea>
+                
+                @if (description.invalid && (description.dirty || description.touched)) {
+                  <div class="invalid-feedback d-block">
+                    Vpiši opis recepta.
+                  </div>
+                }
+              </div>
+
+              <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-outline-secondary" (click)="goBack()">
+                  <i class="bi bi-x-circle me-1"></i> Prekliči
+                </button>
+                
+                <button 
+                  type="submit" 
+                  class="btn btn-primary"
+                  [disabled]="isSaving">
+                  
+                  @if (isSaving) {
+                    <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                    Shranjujem...
+                  } @else {
+                    <i class="bi bi-check-circle me-1"></i> Shrani spremembe
+                  }
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    }
+
+  </div>
+</div>

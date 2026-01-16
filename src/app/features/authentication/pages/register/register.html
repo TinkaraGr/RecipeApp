@@ -1,0 +1,106 @@
+<div class="row justify-content-center align-items-center min-vh-100">
+  <div class="col-md-4">
+    <div class="card shadow">
+      <div class="card-body p-5">
+        <h2 class="card-title text-center mb-4">Registracija</h2>
+        
+        <form (ngSubmit)="onSubmit(registerForm)" #registerForm="ngForm">
+          
+          <!-- Email -->
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input 
+              type="email" 
+              class="form-control"
+              id="email"
+              name="email"
+              #email="ngModel"
+              [(ngModel)]="user.email"
+              placeholder="Vnesite e-mail"
+              [ngClass]="{'is-invalid': email.invalid && (email.touched || email.dirty || registerForm.submitted), 'is-valid': email.valid && (email.touched || email.dirty || registerForm.submitted)}"
+              required
+              email
+            >
+            @if (email.invalid && (email.touched || email.dirty || registerForm.submitted)) {
+              <div class="invalid-feedback d-block">
+                @if (email.errors && email.errors['required']) {
+                  Polje je obvezno!
+                } @else if (email.errors && email.errors['email']) {
+                  Vnesite veljaven email naslov!
+                }
+              </div>
+            }
+          </div>
+
+          <!-- Password -->
+          <div class="mb-3">
+            <label for="password" class="form-label">Geslo</label>
+            <input 
+              type="password" 
+              class="form-control"
+              id="password"
+              name="password"
+              #password="ngModel"
+              autocomplete="new-password"
+              [(ngModel)]="user.password"
+              placeholder="Vnesite geslo"
+              [ngClass]="{'is-invalid': password.invalid && (password.touched || password.dirty || registerForm.submitted), 'is-valid': password.valid && (password.touched || password.dirty || registerForm.submitted)}"
+              required
+              minlength="6"
+            >
+            @if(password.invalid && (password.touched || password.dirty || registerForm.submitted)) {
+              @if (password.errors && password.errors['required']) {
+                <div class="invalid-feedback d-block">Polje je obvezno!</div>
+              } @else if(password.errors && password.errors['minlength']) {
+                <div class="invalid-feedback d-block">Geslo mora imeti vsaj 6 znakov!</div>
+              }
+            }
+            @if(password.valid && (password.touched || password.dirty || registerForm.submitted)) {
+              <div class="form-text text-muted mt-1">Geslo mora imeti vsaj 6 znakov</div>
+            }
+          </div>
+
+
+          <!-- Confirm Password -->
+          <div class="mb-4">
+            <label for="confirmPassword" class="form-label">Ponovite geslo</label>
+            <input 
+              type="password" 
+              class="form-control"
+              id="confirmPassword"
+              name="confirmPassword"
+              #confirmPasswordRef="ngModel"
+              [(ngModel)]="confirmPassword" 
+              placeholder="Ponovite geslo"
+              [ngClass]="{'is-invalid': (confirmPasswordRef.invalid && (confirmPasswordRef.touched || confirmPasswordRef.dirty || registerForm.submitted)) || (confirmPassword && confirmPassword !== user.password), 'is-valid': confirmPasswordRef.valid && confirmPassword && confirmPassword === user.password && (confirmPasswordRef.touched || confirmPasswordRef.dirty || registerForm.submitted)}"
+              required
+            >
+            @if(confirmPasswordRef.invalid && (confirmPasswordRef.touched || confirmPasswordRef.dirty || registerForm.submitted)) {
+              @if (confirmPasswordRef.errors && confirmPasswordRef.errors['required']) {
+                <div class="invalid-feedback d-block">Polje je obvezno!</div>
+              }
+            }
+            @if(confirmPassword && confirmPassword !== user.password && (confirmPasswordRef.touched || confirmPasswordRef.dirty || registerForm.submitted)) {
+              <div class="invalid-feedback d-block">Gesli se ne ujemata!</div>
+            }
+          </div>
+
+          <button 
+            type="submit"
+            class="btn btn-primary w-100 mb-3"
+            [disabled]="!registerForm.form.valid || (confirmPassword !== user.password)"
+          >
+            Ustvari račun
+          </button>
+        </form>
+
+        <div class="text-center">
+          <p class="mb-0">Že imate račun?</p>
+          <a routerLink="/login" class="text-decoration-none">
+            Prijavite se
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
